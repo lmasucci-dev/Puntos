@@ -1,16 +1,19 @@
 import React from 'react';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { Dimensions, StyleSheet } from 'react-native';
 
-export default () => {
+export default ({ onLongPress, puntos, pointsFilter }) => {
     return (
-        <MapView style={styles.map} /> 
+        <MapView style={styles.map} onLongPress={onLongPress}>
+            {pointsFilter && puntos.map(x => 
+                <Marker key={x.name} coordinate={x.coordinate} title={x.name} />)}
+        </MapView> 
     )
  }
 
  const styles = StyleSheet.create({
     map: {
-        height: Dimensions.get('window').height,
+        height: Dimensions.get('window').height - 150,
         width: Dimensions.get('window').width,
     },
  })
